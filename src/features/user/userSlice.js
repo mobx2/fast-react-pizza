@@ -1,4 +1,4 @@
-import { getAddress } from "../src/services/apiGeocoding";
+import { getAddress } from "../../services/apiGeocoding";
 
 function getPosition() {
   return new Promise(function (resolve, reject) {
