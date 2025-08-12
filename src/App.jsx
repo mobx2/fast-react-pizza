@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigation,
+} from "react-router-dom";
 
 import Home from "./ui/Home";
 import Error from "./ui/Error";
@@ -9,12 +13,12 @@ import CreateOrder, {
 } from "./features/order/CreateOrder";
 import Order, { loader as orderLoader } from "./features/order/Order";
 import AppLayout from "./ui/AppLayout";
+import Loader from "./ui/Loader";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     errorElement: <Error />,
-
     children: [
       {
         path: "/",
@@ -27,9 +31,14 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
         path: "/order/new",
         element: <CreateOrder />,
         action: createOrderAction,
+        errorElement: <Error />,
       },
       {
         path: "/order/:orderId",
@@ -37,16 +46,12 @@ const router = createBrowserRouter([
         loader: orderLoader,
         errorElement: <Error />,
       },
-      {
-        path: "/cart",
-        element: <Cart />,
-      },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} fallbackElement={<Loader />} />;
 }
 
 export default App;
