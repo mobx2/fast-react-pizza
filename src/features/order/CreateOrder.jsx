@@ -39,8 +39,6 @@ function CreateOrder() {
 
   const formErrors = useActionData();
 
-  console.log(formErrors);
-
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
 
