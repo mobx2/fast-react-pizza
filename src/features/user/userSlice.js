@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAddress } from "../../services/apiGeocoding";
-// import { action } from "../order/CreateOrder";
 
 function getPosition() {
   return new Promise(function (resolve, reject) {

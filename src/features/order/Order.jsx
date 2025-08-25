@@ -1,7 +1,4 @@
-// Test ID: IIDSAT
-
 import OrderItem from "./OrderItem";
-
 import { useFetcher, useLoaderData } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 import {
@@ -12,44 +9,8 @@ import {
 import { useEffect } from "react";
 import UpdateOrder from "./UpdateOrder";
 
-// const order = {
-//   id: "ABCDEF",
-//   customer: "Jonas",
-//   phone: "123456789",
-//   address: "Arroios, Lisbon , Portugal",
-//   priority: true,
-//   estimatedDelivery: "2027-04-25T10:00:00",
-//   cart: [
-//     {
-//       pizzaId: 7,
-//       name: "Napoli",
-//       quantity: 3,
-//       unitPrice: 16,
-//       totalPrice: 48,
-//     },
-//     {
-//       pizzaId: 5,
-//       name: "Diavola",
-//       quantity: 2,
-//       unitPrice: 16,
-//       totalPrice: 32,
-//     },
-//     {
-//       pizzaId: 3,
-//       name: "Romana",
-//       quantity: 1,
-//       unitPrice: 15,
-//       totalPrice: 15,
-//     },
-//   ],
-//   position: "-9.000,38.000",
-//   orderPrice: 95,
-//   priorityPrice: 19,
-// };
-
 function Order() {
   const order = useLoaderData();
-
   const fetcher = useFetcher();
 
   useEffect(() => {
@@ -135,74 +96,3 @@ export async function loader({ params }) {
 }
 
 export default Order;
-
-/**
- * 
- * import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAddress } from "../../services/apiGeocoding";
-import { action } from "../order/CreateOrder";
-
-function getPosition() {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-}
-
-export const fetchAddress = createAsyncThunk(
-  "user/fetchAddress",
-  async function () {
-    // 1) We get the user's geolocation position
-    const positionObj = await getPosition();
-    const position = {
-      latitude: positionObj.coords.latitude,
-      longitude: positionObj.coords.longitude,
-    };
-
-    // 2) Then we use a reverse geocoding API to get a description of the user's address, so we can display it the order form, so that the user can correct it if wrong
-    const addressObj = await getAddress(position);
-    const address = `${addressObj?.locality}, ${addressObj?.city} ${addressObj?.postcode}, ${addressObj?.countryName}`;
-
-    // 3) Then we return an object with the data that we are interested in payload of the fulfilled state
-    return { position, address };
-  },
-);
-
-const initialState = {
-  username: "",
-  status: "idle",
-  position: {},
-  address: "",
-  error: "",
-};
-
-const userSlice = createSlice({
-  name: "user",
-  initialState,
-  reducers: {
-    updateName(state, action) {
-      state.username = action.payload;
-    },
-  },
-  extraReducers: (builder) =>
-    builder
-      .addCase(fetchAddress.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(fetchAddress.fulfilled, (state, action) => {
-        state.position = action.payload.position;
-        state.address = action.payload.address;
-        state.status = "idle";
-      })
-      .addCase(fetchAddress.rejected, (state, action) => {
-        state.status = "error";
-        state.error = action.error.message;
-      }),
-});
-
-export const { updateName } = userSlice.actions;
-
-export default userSlice.reducer;
-
- * 
- * 
- */
